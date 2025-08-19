@@ -1,0 +1,54 @@
+services:
+    nginx:
+        image: "nginx:stable-alpine"
+        ports:
+            - "8000:80"
+        volumes:
+            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./:/var/www/laravel
+        depends_on:
+            - mysql
+            - php
+    php:
+        build:
+            context: docker/dockerfiles
+            dockerfile: php.Dockerfile
+        user: "${UID}:${GID}"
+        volumes:
+            - ./:/var/www/laravel
+    mysql:
+        image: mysql:8.0
+        ports:
+            - "3316:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: apartmentBooking
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: root
+        volumes:
+            - db_data:/var/lib/mysql
+        restart: always
+    mailpit:
+        image: axllent/mailpit
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-8025}:8025'
+            - '1025:1025'
+
+    node:
+        image: node:22-alpine
+        working_dir: /var/www/laravel
+        volumes:
+            - ./:/var/www/laravel
+        ports:
+            - "5173:5173"
+        command: tail -f /dev/null
+        user: "${UID}:${GID}"
+
+    composer:
+        build:
+            context: docker/dockerfiles
+            dockerfile: composer.dockerfile
+        volumes:
+            - ./:/var/www/laravel
+volumes:
+    db_data:
