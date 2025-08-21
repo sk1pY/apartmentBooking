@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Apartment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
-class ApartmentFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class ApartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'user_id' => $this->faker->numberBetween(1, 5),
+            //
         ];
     }
 }

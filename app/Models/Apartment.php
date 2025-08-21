@@ -10,4 +10,16 @@ class Apartment extends Model
     /** @use HasFactory<\Database\Factories\ApartmentFactory> */
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
 }

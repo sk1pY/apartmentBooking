@@ -12,23 +12,20 @@ class AuthController extends Controller
 {
     public function login(Request $request): \Illuminate\Http\JsonResponse
     {
-
-        if (!Auth::check()) {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ]);
-        }
         $validate = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        $user = Auth::user();
-        if ($user && Auth::attempt($validate)) {
-            return response()->json([
-                'message' => 'Login successful',
-                'user' => $user,
-                'token' => $user->createToken('API Token')->plainTextToken,
-            ]);
+        if (Auth::attempt($validate)) {
+            $user = Auth::user();
+            if ($user) {
+                return response()->json([
+                    'message' => 'Login successful',
+                    'user' => $user,
+                    'token' => $user->createToken('API Token')->plainTextToken,
+                ]);
+            }
+
         }
 
 

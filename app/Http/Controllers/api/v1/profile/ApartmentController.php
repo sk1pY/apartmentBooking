@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\v1;
+namespace App\Http\Controllers\api\v1\profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
@@ -14,7 +14,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::get();
+        $apartments = Apartment::where('user_id', Auth::id())->get();
         return response()->json($apartments);
     }
 
@@ -43,9 +43,10 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function apartmentBookings(Apartment $apartment)
     {
-        //
+        $bookings = $apartment->bookings()->get();
+        return response()->json($bookings);
     }
 
     /**
@@ -53,6 +54,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
+        $this->authorize('update', $apartment);
         $apartment->update([
             'name' => $request->input('name'),
         ]);
@@ -64,9 +66,11 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        $this->authorize('delete', $apartment);
+
         $apartment->delete();
         return response([
             'message' => 'Apartment deleted successfully',
-        ], 204);
+        ], 201);
     }
 }

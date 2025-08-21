@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\api\v1;
+namespace App\Http\Controllers\api\v1\profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $bookings = Booking::where('user_id', Auth::id())->get();
+        return response()->json($bookings);
     }
 
     /**
@@ -35,16 +37,13 @@ class BookingController extends Controller
         return response()->json([
             'message' => 'added successfully'
         ], 201);
-
-
     }
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Booking $booking)
     {
-        //
+        return response()->json($booking);
     }
 
     /**
@@ -58,8 +57,11 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Booking $booking)
     {
-        //
+         $booking->delete();
+         return response()->json([
+             'message' => 'deleted successfully'
+         ],201);
     }
 }
