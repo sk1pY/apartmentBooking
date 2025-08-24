@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class ApartmentFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
+            'city_id' => City::inRandomOrder()->first()->id,
             'user_id' => $this->faker->numberBetween(1, 5),
         ];
     }

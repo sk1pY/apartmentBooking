@@ -11,4 +11,8 @@ class Booking extends Model
         'date_start',
         'date_end',
     ];
+
+    public function apartment(){
+        return $this->belongsTo(Apartment::class);
+    }
 }
