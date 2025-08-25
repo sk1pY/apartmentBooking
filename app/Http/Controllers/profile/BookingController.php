@@ -31,19 +31,29 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Apartment $apartment)
+    public function store(Request $request, Apartment $apartment)
     {
         $validated = $request->validate([
             'date_start' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'date_end' => 'required|date|date_format:Y-m-d|after_or_equal:start_date',
         ]);
 
-        $user = Auth::user();
+        $date_start = $request->input("date_start");
+        $date_end = $request->input("date_end");
 
-        $validated['apartment_id'] = $apartment->id;
-        $user->bookings()->create($validated);
+        $check = $apartment->bookings()
+            ->where('date_start', '<=', $date_end)
+            ->where('date_end', '>=', $date_start)
+            ->first();
 
-        return back()->with('success','booking created successfully');
+        if (!$check) {
+            $user = Auth::user();
+            $validated['apartment_id'] = $apartment->id;
+            $user->bookings()->create($validated);
+            return back()->with('success', 'booking created successfully');
+        }
+        return back()->with('error', 'booking exists already');
+
     }
 
     /**
@@ -76,6 +86,6 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         $booking->delete();
-        return back()->with('success','booking deleted successfully');
+        return back()->with('success', 'booking deleted successfully');
     }
 }

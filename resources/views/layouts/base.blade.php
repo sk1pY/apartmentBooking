@@ -8,6 +8,15 @@
     <title>Document</title>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("#datepicker", {
+                minDate: "today",
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -22,8 +31,15 @@
 
         </div>
     @endif
+        @if (session('error'))
+            <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-@if (session('success'))
+
+    @if (session('success'))
         <div class="alert alert-success  alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

@@ -13,6 +13,23 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        City::factory()->count(10)->create();
+        $cities = [
+            'Минск',
+            'Гомель',
+            'Гродно',
+            'Витебск',
+            'Могилёв',
+            'Брест',
+            'Бобруйск',
+            'Барановичи',
+            'Борисов',
+            'Пинск'
+        ];
+
+        foreach ($cities as $city) {
+            City::create([
+                'name' => $city,
+            ]);
+        }
     }
 }

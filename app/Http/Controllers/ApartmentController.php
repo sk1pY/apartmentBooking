@@ -12,6 +12,7 @@ class ApartmentController extends Controller
     }
 
     public function show(Apartment $apartment){
-        return view('apartment_show', compact('apartment'));
+        $bookings = $apartment->bookings()->get();
+        return view('apartment_show', compact('apartment','bookings'));
     }
 }

@@ -17,18 +17,6 @@ class CityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement([
-                'Минск',
-                'Гомель',
-                'Гродно',
-                'Витебск',
-                'Могилёв',
-                'Брест',
-                'Бобруйск',
-                'Барановичи',
-                'Борисов',
-                'Пинск'
-            ]),
         ];
     }
 }
