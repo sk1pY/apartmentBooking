@@ -18,6 +18,11 @@
         });
     </script>
 </head>
+<style>
+    body{
+        background-color: #F5F5F5;
+    }
+</style>
 <body>
 <div class="container">
     @if ($errors->any())

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Apartment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class ApartmentSeeder extends Seeder
 {
@@ -13,6 +14,19 @@ class ApartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Apartment::factory()->count(30)->create();
+
+        $sourcePath = database_path('seeders/apartmentsImages');
+        $destinationPath = storage_path('app/public/apartmentsImages');
+
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0755, true);
+        }
+        $files = File::files($sourcePath);
+        foreach ($files as $file) {
+            $destination = $destinationPath . '/' . basename($file);
+            File::copy($file->getPathname(), $destination);
+        }
+
+        Apartment::factory()->count(200)->create();
     }
 }

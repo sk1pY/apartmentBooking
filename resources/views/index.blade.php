@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('content')
     <div class="p-3 bg-primary m-4 rounded-5">
-        <form action="{{route('search')}}"  class="d-flex align-items-center">
+        <form action="{{route('search')}}" class="d-flex align-items-center">
             <input class="form-control " type="text" placeholder="В какой город хотите поехать?" name="name">
             <input id="datepicker" class="form-control w-25" type="date" placeholder="Дата начала" name="date_start">
             <input id="datepicker" class="form-control w-25" type="date" placeholder="Дата окончания" name="date_end">
@@ -12,12 +12,12 @@
 
 
     <div class="row g-4 justify-content-center">
-
         @foreach($cities as $city)
-            <div class="card" style="width: 18rem;">
-                {{--                <img src="..." class="card-img-top" alt="...">--}}
+            <div class="card me-4" style="width: 18rem;">
+                <img src="{{Storage::url('citiesImages/'.$city->image)}}"
+                     class="card-img-top h-75 rounded-3 p-1" alt="...">
                 <div class="card-body">
-                    <a href="{{route('city.show',$city)}}" class="card-text">{{$city->name}}</a>
+                    <a href="{{route('city.show',$city)}}" class="text-decoration-none  text-muted card-text">{{$city->name}}</a>
                 </div>
             </div>
             {{--            {{$apartment->name}}--}}

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\File;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Apartment>
@@ -17,8 +18,11 @@ class ApartmentFactory extends Factory
      */
     public function definition(): array
     {
+        $files = File::files(database_path('seeders/apartmentsImages'));
+
         return [
             'name' => $this->faker->word(),
+            'image' => $files ? $files[array_rand($files)]->getFilename() : null,
             'city_id' => City::inRandomOrder()->first()->id,
             'user_id' => $this->faker->numberBetween(1, 5),
         ];

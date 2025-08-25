@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image')->nullable();
             $table->foreignId('city_id')->constrained('cities');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();

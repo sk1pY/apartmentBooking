@@ -8,6 +8,7 @@ use App\Models\Apartment;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\profile\BookingController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [CityController::class, 'index']);
 
@@ -22,6 +23,7 @@ Route::prefix('profile')->name('profile.')->middleware('auth')->group(function (
 
 });
 
+Route::resource('apartments.comments', CommentController::class);
 
 Route::get('/search',SearchController::class)->name('search');
 

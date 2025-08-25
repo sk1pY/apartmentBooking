@@ -37,7 +37,6 @@ class CommentController extends Controller
 
     public function update(Request $request, Apartment $apartment, Comment $comment)
     {
-
         abort_if($apartment->id != $comment->apartment->id, 403);
         $this->authorize('update', $comment);
         $validate = $request->validate([
