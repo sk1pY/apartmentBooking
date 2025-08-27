@@ -7,7 +7,8 @@
             <div class="list-group">
                 <a href="{{ route('profile.bookings.index') }}" class="list-group-item list-group-item-action">Bookings</a>
                 <a href="#" class="list-group-item list-group-item-action">Settings</a>
-                <a href="#" class="list-group-item list-group-item-action">My apartments</a>
+                <a href="{{route('profile.apartments.index')}}" class="list-group-item list-group-item-action">My apartments</a>
+                <a href="{{route('profile.bookmarks.index')}}" class="list-group-item list-group-item-action">Bookmarks</a>
             </div>
         </div>
 

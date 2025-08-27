@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Bookmark;
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CityController extends Controller
 {
@@ -16,6 +18,9 @@ class CityController extends Controller
     public function show(City $city){
 
         $apartments = Apartment::where('city_id',$city->id)->get();
-        return view('show', compact('apartments','city'));
+
+        $user = Auth::user();
+        $bookmarksIds = $user->bookmarks()->pluck('apartment_id')->toArray();
+        return view('show', compact('apartments','city','bookmarksIds'));
     }
 }

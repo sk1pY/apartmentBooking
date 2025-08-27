@@ -22,4 +22,8 @@ class Apartment extends Model
     public function bookings(){
         return $this->hasMany(Booking::class);
     }
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

@@ -20,6 +20,11 @@
                 <div class="card-body">
                     <a href="{{route('apartments.show', [$apartment, 'date_start' => request('date_start'), 'date_end' => request('date_end')]) }}"
                        class="text-decoration-none  text-muted card-text">  {{$apartment->name}}</a>
+                    <form action="{{route('bookmark.store',$apartment)}}" method="post">
+                        @csrf
+                        <button class="btn btn-warning btn-sm" type="submit"
+                            {{in_array($apartment->id,$bookmarksIds)? 'disabled' : ''}}>Добавить в избранное</button>
+                    </form>
                 </div>
             </div>
         @endforeach

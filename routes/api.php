@@ -29,6 +29,5 @@ Route::middleware('auth:sanctum')->group(function () {
     //Comments
     Route::apiResource('apartments.comments', ApartmentCommentController::class)->except(['show']);
 
-
 });
 
