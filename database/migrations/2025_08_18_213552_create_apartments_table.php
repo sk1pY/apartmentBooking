@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable();
+            $table->float('price');
+            $table->decimal('avgRating', 2, 1)->default(0);
             $table->foreignId('city_id')->constrained('cities');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();

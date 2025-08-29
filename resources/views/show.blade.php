@@ -12,21 +12,34 @@
     </form>
 
 
-    <div class="row g-4 justify-content-center mt-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-3">
         @foreach($apartments as $apartment)
-            <div class="card me-4 rounded-3 border-0" style="height: 15rem;width: 16rem">
-                                <img src="{{Storage::url('apartmentsImages/'.$apartment->image)}}"
-                                     class="card-img-top rounded-4 mt-2"  style=" height: 10rem;">
-                <div class="card-body">
-                    <a href="{{route('apartments.show', [$apartment, 'date_start' => request('date_start'), 'date_end' => request('date_end')]) }}"
-                       class="text-decoration-none  text-muted card-text">  {{$apartment->name}}</a>
-                    <form action="{{route('bookmark.store',$apartment)}}" method="post">
-                        @csrf
-                        <button class="btn btn-warning btn-sm" type="submit"
-                            {{in_array($apartment->id,$bookmarksIds)? 'disabled' : ''}}>Добавить в избранное</button>
-                    </form>
+            <div class="col">
+                <div class="card h-100 rounded-3 border-0 shadow-sm">
+                    <img src="{{ Storage::url('apartmentsImages/'.$apartment->image) }}"
+                         class="card-img-top rounded-4 mt-2 mx-auto d-block"
+                         style="height: 10rem; object-fit: cover; width: 95%;">
+
+                    <div class="card-body d-flex flex-column">
+                        <a href="{{ route('apartments.show', [$apartment, 'date_start' => request('date_start'), 'date_end' => request('date_end')]) }}"
+                           class="text-decoration-none text-dark fw-semibold mb-2 flex-grow-1">
+                            {{ $apartment->name }}
+                        </a>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="mb-0 fw-bold text-primary">{{ $apartment->price }} ₽</p>
+
+                            <form action="{{ route('bookmark.store',$apartment) }}" method="post" class="mb-0">
+                                @csrf
+                                <button class="  btn-sm" type="submit">
+                                    <i class="bi bi-star"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endforeach
     </div>
+
 @endsection

@@ -31,11 +31,17 @@ class CommentController extends Controller
     {
         $validate = $request->validate([
             'text' => 'required|string',
+            'rating' => 'required|integer|between:1,5',
         ]);
 
         $user = $request->user();
         $validate['user_id'] = $user->id;
         $comment = $apartment->comments()->create($validate);
+
+        $rating = $apartment->comments()->avg('rating');
+
+        $apartment->avgRating = $rating;
+        $apartment->save();
 
         return back()->with('success', 'Comment added successfully');
     }

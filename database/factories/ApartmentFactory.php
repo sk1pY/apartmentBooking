@@ -22,8 +22,9 @@ class ApartmentFactory extends Factory
 
         return [
             'name' => $this->faker->word(),
+            'price' =>$this->faker->numberBetween(50,100),
             'image' => $files ? $files[array_rand($files)]->getFilename() : null,
-            'city_id' => City::inRandomOrder()->first()->id,
+            'city_id' => $this->faker->numberBetween(1, 10),
             'user_id' => $this->faker->numberBetween(1, 5),
         ];
     }

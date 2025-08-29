@@ -20,9 +20,11 @@ class BookingFactory extends Factory
         $dateStart = $this->faker->dateTimeBetween('now', '+1 month');
 
         return [
-            'apartment_id' => Apartment::inRandomOrder()->first()->id,
+            'apartment_id' => $this->faker->numberBetween(1, 200),
             'user_id' => $this->faker->numberBetween(1, 11),
-            'date_start' => $dateStart->format('Y-m-d'),
-            'date_end' => $this->faker->dateTimeBetween($dateStart, '+1 month')->format('Y-m-d'),];
+            'date_start' => $start = $this->faker->dateTimeBetween('now', '+6 months')->format('Y-m-d'),
+            'date_end' => $this->faker->dateTimeBetween($start, strtotime($start . ' +3 days'))->format('Y-m-d')
+        ];
+
     }
 }

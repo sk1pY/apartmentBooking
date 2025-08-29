@@ -36,6 +36,7 @@ class ApartmentController extends Controller
 
         $validate = $request->validate([
             'name' => 'required|string',
+            'price' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'city_id' => 'required|exists:cities,id',
         ]);

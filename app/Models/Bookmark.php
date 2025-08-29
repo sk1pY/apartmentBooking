@@ -15,5 +15,7 @@ class Bookmark extends Model
     public function apartment(){
         return $this->belongsTo(Apartment::class);
     }
+
+
 }
 

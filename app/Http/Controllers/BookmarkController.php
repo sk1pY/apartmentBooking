@@ -21,11 +21,13 @@ class BookmarkController extends Controller
             'apartment_id' => $apartment->id
         ]);
 
-        return back()->with('success', 'Bookmark added successfully');
+        return redirect()->route('city.show',$apartment->city_id)->with('success', 'Bookmark added successfully');
     }
 
     public function destroy(Bookmark $bookmark){
+        $cityId = $bookmark->apartment->city_id;
         $bookmark->delete();
-        return back()->with('success', 'Bookmark deleted successfully');
+        return redirect()->route('city.show',$cityId)->with('success', 'Bookmark deleted successfully');
+
     }
 }

@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
           CitySeeder::class,
           UserSeeder::class,
           ApartmentSeeder::class,
+          CommentSeeder::class,
           BookingSeeder::class,
 
       ]);

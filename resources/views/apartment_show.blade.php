@@ -17,6 +17,7 @@
     <h3>Apartment</h3>
     <hr>
     {{$apartment->name}}
+    {{$apartment->avgRating}}
 
     <form action="{{route('booking.store',$apartment)}}" method="post">
         @csrf
@@ -39,6 +40,13 @@
                               class="d-flex gap-2">
                             @csrf
                             <input class="form-control" type="text" name="text" placeholder="Ваш комментарий">
+                            <select name="rating" id="">
+                                <option value="5" selected>5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
                             <button type="submit" class="btn btn-primary">Отправить</button>
                         </form>
 
@@ -49,6 +57,7 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <p>{{$comment -> text}}</p>
+                                <p>Оценка:{{$comment -> rating}}</p>
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
