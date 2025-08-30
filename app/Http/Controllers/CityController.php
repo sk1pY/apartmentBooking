@@ -10,17 +10,28 @@ use Illuminate\Support\Facades\Auth;
 
 class CityController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $cities = City::all();
         return view('index', compact('cities'));
     }
 
-    public function show(City $city){
+    public function show(Request $request, City $city)
+    {
+        $apartmentsQuery = Apartment::where('city_id', $city->id);
 
-        $apartments = Apartment::where('city_id',$city->id)->get();
-
+        $filter = $request->input('filter');
+        match ($filter) {
+            'price_asc' => $apartmentsQuery->orderBy('price', 'asc'),
+            'price_desc' => $apartmentsQuery->orderBy('price', 'desc'),
+            'rating' => $apartmentsQuery->orderBy('avgRating', 'desc'),
+            default => $apartmentsQuery->latest(),
+        };
+        $apartments = $apartmentsQuery->get();
         $user = Auth::user();
         $bookmarksIds = $user->bookmarks()->pluck('apartment_id')->toArray();
-        return view('show', compact('apartments','city','bookmarksIds'));
+        return view('show', compact('apartments', 'city', 'bookmarksIds'));
     }
+
+
 }

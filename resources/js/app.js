@@ -1,2 +1,4 @@
-import * as bootstrap from 'bootstrap';
+import './bootstrap.js'
 
+
+import './components/bookmark.js'

@@ -6,6 +6,7 @@
         <thead>
         <tr class="text-center align-middle">
             <th scope="col" class="col-4">apartment</th>
+            <th scope="col" class="col-4">price</th>
             <th scope="col" class="col-4">data</th>
             <th scope="col" class="col-2">option</th>
         </tr>
@@ -18,6 +19,10 @@
                     <a href="{{route('apartments.show',$booking->apartment)}}">
                         {{$booking->apartment->name}}
                     </a>
+                </td>
+
+                <td>
+                    {{$booking->price}}
                 </td>
             <td>
                 {{$booking->date_start}}--{{$booking->date_end}}

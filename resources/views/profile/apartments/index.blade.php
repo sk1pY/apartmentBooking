@@ -2,6 +2,7 @@
 @section('profile')
     <h3>My apartments</h3>
     <hr>
+
     <table id="table" class="table table-sm table-bordered table-striped small align-middle text-center">
         <thead>
         <tr class="text-center align-middle">

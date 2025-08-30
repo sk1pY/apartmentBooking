@@ -5,6 +5,7 @@ namespace App\Http\Controllers\profile;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Booking;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class BookingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $bookings = $user->bookings()->get();
+        $bookings = $user->bookings()->latest()->get();
         return view('profile.bookings.index', compact('bookings'));
     }
 
@@ -36,6 +37,7 @@ class BookingController extends Controller
         $validated = $request->validate([
             'date_start' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'date_end' => 'required|date|date_format:Y-m-d|after_or_equal:start_date',
+            'quantity' => 'required|integer|min:1',
         ]);
 
         $date_start = $request->input("date_start");
@@ -48,7 +50,9 @@ class BookingController extends Controller
 
         if (!$check) {
             $user = Auth::user();
+            $quamtity_days = Carbon::parse($date_start)->diffInDays($date_end);
             $validated['apartment_id'] = $apartment->id;
+            $validated['price'] = $apartment->price * $quamtity_days;
             $user->bookings()->create($validated);
             return back()->with('success', 'booking created successfully');
         }

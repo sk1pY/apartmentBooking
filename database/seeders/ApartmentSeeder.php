@@ -28,6 +28,6 @@ class ApartmentSeeder extends Seeder
             File::copy($file->getPathname(), $destination);
         }
 
-        Apartment::factory()->count(200)->create();
+        Apartment::factory()->count(50)->create();
     }
 }

@@ -9,7 +9,7 @@ class Apartment extends Model
 {
     /** @use HasFactory<\Database\Factories\ApartmentFactory> */
     use HasFactory;
-    protected $fillable = ['name','price','avgRating','image','city_id'];
+    protected $fillable = ['name','price','avgRating','address','image','city_id'];
 
     public function user(){
         return $this->belongsTo(User::class);

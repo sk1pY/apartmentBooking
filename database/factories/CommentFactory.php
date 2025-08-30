@@ -21,8 +21,8 @@ class CommentFactory extends Factory
         return [
             'text' => $this->faker->realText(),
             'rating' => $this->faker->numberBetween(1,5),
-            'apartment_id' => $this->faker->numberBetween(1,200),
-            'user_id' => $this->faker->numberBetween(1, 10),
+            'apartment_id' => $this->faker->numberBetween(1,50),
+            'user_id' => $this->faker->numberBetween(1, 11),
         ];
     }
 

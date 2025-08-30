@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('apartment_id')->constrained('apartments');
             $table->foreignId('user_id')->constrained('users');
+            $table->float('price');
+            $table->integer('quantity');
             $table->date('date_start');
             $table->date('date_end');
             $table->timestamps();

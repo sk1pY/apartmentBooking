@@ -21,10 +21,6 @@ class CitySeeder extends Seeder
             'Витебск',
             'Могилёв',
             'Брест',
-            'Бобруйск',
-            'Барановичи',
-            'Борисов',
-            'Пинск'
         ];
 
         $sourcePath = database_path('seeders/citiesImages');

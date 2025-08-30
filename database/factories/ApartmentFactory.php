@@ -22,10 +22,11 @@ class ApartmentFactory extends Factory
 
         return [
             'name' => $this->faker->word(),
+            'address' => $this->faker->address(),
             'price' =>$this->faker->numberBetween(50,100),
             'image' => $files ? $files[array_rand($files)]->getFilename() : null,
-            'city_id' => $this->faker->numberBetween(1, 10),
-            'user_id' => $this->faker->numberBetween(1, 5),
+            'city_id' => $this->faker->numberBetween(1, 6),
+            'user_id' => $this->faker->numberBetween(1, 11),
         ];
     }
 }

@@ -5,7 +5,6 @@
             flatpickr("#datepicker", {
                 dateFormat: "Y-m-d",
                 minDate: "today",
-                closeOnSelect: false,
                 disable: @json($bookings->map(fn($b) => [
                     'from' => $b->date_start,
                     'to'   => $b->date_end,
@@ -17,10 +16,21 @@
     <h3>Apartment</h3>
     <hr>
     {{$apartment->name}}
-    {{$apartment->avgRating}}
+    <p>{{$apartment->price}}$ за 1 ночь</p>
+    рейтинг-{{$apartment->avgRating}}
+    <p>
+        адрес-{{$apartment->address}}
+    </p>
 
     <form action="{{route('booking.store',$apartment)}}" method="post">
         @csrf
+        <select class="form-control w-25 mx-2" name="quantity" id="">
+            <option value="1" {{ request('quantity') === '1' ? 'selected' : '' }}>1</option>
+            <option value="2" {{ request('quantity') === '2' ? 'selected' : '' }}>2 взрослых</option>
+            <option value="3" {{ request('quantity') === '3' ? 'selected' : '' }}>3</option>
+            <option value="4" {{ request('quantity') === '4' ? 'selected' : '' }}>4</option>
+            <option value="5" {{ request('quantity') === '5' ? 'selected' : '' }}>5</option>
+        </select>
         <input id="datepicker" class="form-control w-25" type="date" placeholder="Дата начала" name="date_start"
                value="{{ request('date_start')}}">
         <input id="datepicker" class="form-control w-25" type="date" placeholder="Дата окончания" name="date_end"
